@@ -2,15 +2,14 @@
   user-list works!
 </p>
 
-<ul>
-    <li  >
+<!-- <ul>
+    <li> -->
       <ul *ngFor="let wow of users">
          <li>{{wow.name}}</li>
          <li>{{wow.email}}</li>
-         <li>{{wow.website}}</li>
       </ul>
-    </li>
-</ul>
+    <!-- </li>
+</ul> -->
 
 <table>
   <tr>
@@ -21,7 +20,7 @@
   <tr *ngFor="let wow of users">
     <td id="{{1+1}}">{{wow.name}}</td>
     <td>{{wow.email}}</td>
-    <td>{{wow.website}}</td>
+    <td><a href="http://{{wow.website}}">{{wow.website}}</a></td>
   </tr>
 </table>
 
