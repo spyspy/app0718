@@ -1,0 +1,35 @@
+<p>
+  user-list works!
+</p>
+
+<ul>
+    <li  >
+      <ul *ngFor="let wow of users">
+         <li>{{wow.name}}</li>
+         <li>{{wow.email}}</li>
+         <li>{{wow.website}}</li>
+      </ul>
+    </li>
+</ul>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>email</th>
+    <th>websiete</th>
+  </tr>
+  <tr *ngFor="let wow of users">
+    <td id="{{1+1}}">{{wow.name}}</td>
+    <td>{{wow.email}}</td>
+    <td>{{wow.website}}</td>
+  </tr>
+</table>
+
+<style>
+  table, td, th {
+      border: 1px solid black;
+  }
+  table {
+      border-collapse: collapse;
+  }
+  </style>
