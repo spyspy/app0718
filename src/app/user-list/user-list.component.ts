@@ -19,9 +19,9 @@ export class UserListComponent implements OnInit {
   }
 
   ngOnInit() {
-    // 要少用嗎???
     // 為什麼這邊可以直接抓到 userlist
     // this.userlist.ngOnInit().subscribe();
+    // 必須有return值才可以訂閱( subscribe() )
     this.userlist.getUrl().subscribe(
       userlist => {
         return this.users = userlist;
