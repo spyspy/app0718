@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../user.service'
+import { UserService } from '../user.service';
 // import { Observable, throwError} from 'rxjs';
 // import { retry, catchError,} from 'rxjs/operators';
 
@@ -13,18 +13,20 @@ export class UserListComponent implements OnInit {
 
   users: Object;
   errormsg: string;
-  abc:UserService;
-  constructor(private userlist:UserService) { 
+  abc: UserService;
+  constructor(private userlist: UserService) {
 
   }
 
   ngOnInit() {
-    //要少用嗎???
-    //為什麼這邊可以直接抓到 userlist
-    //this.userlist.ngOnInit().subscribe();
+    // 要少用嗎???
+    // 為什麼這邊可以直接抓到 userlist
+    // this.userlist.ngOnInit().subscribe();
     this.userlist.getUrl().subscribe(
-      userlist => this.users = userlist,
-      //UserService =>this.users = UserService,
+      userlist => {
+        return this.users = userlist;
+      },
+      // UserService =>this.users = UserService,
       error => this.errormsg = error
     );
 
