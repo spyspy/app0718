@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
-import { throwError, of,from, Observable } from 'rxjs';
-import { retry, catchError , map , filter} from 'rxjs/operators';
+import { throwError, of, from, Observable, fromEvent } from 'rxjs';
+import { retry, catchError, map, filter, scan, throttleTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-list',
@@ -21,7 +21,7 @@ export class UserListComponent implements OnInit {
     // 為什麼這邊可以直接抓到 userlist
     // this.userlist.ngOnInit().subscribe();
     // 必須有return值才可以訂閱( subscribe() )
-   
+
 
     this.userlist.getUrl().subscribe(
       userlist => {
@@ -38,28 +38,36 @@ export class UserListComponent implements OnInit {
     //How to use RxJS
 
     //Print out: One by One
-    let data = [1,2,3];
-    from(data).subscribe(test=>console.log(test));
+    let data = [1, 2, 3];
+    from(data).subscribe(test => console.log(test));
 
     //Print out: The whole array
     let data2 = [333, 555, 777];
-    of(data2).subscribe(num=>console.log(num));
-    
+    of(data2).subscribe(num => console.log(num));
+
     //Formal Expression
     let data3 = ['koko', 'kiki', 'boyo'];
     of(data3).subscribe({
-      next: function(value) {
-          console.log(value)
+      next: function (value) {
+        console.log(value)
       },
-      complete: function() {
-          console.log('complete!');
+      complete: function () {
+        console.log('complete!');
       },
-      error: function(error) {
-          console.log(error)
+      error: function (error) {
+        console.log(error)
       }
-  });
+    });
 
-
+    //Button On the Screen
+    console.clear();
+    let btn = document.querySelector('#wowBtn');
+    fromEvent(btn, 'click').subscribe(() => console.log('wow clicked'));
+    
+    let myinput = document.querySelector('#myinput');
+    fromEvent(myinput, 'keyup')
+    .pipe(throttleTime(1000),scan(count=>count+1,0))
+    .subscribe((count) => console.log(`myinput clicked ${count} w`));
   }
 
 }
