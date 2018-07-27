@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { throwError, of, from, Observable, fromEvent } from 'rxjs';
-import { retry, catchError, map, filter, scan, throttleTime } from 'rxjs/operators';
+import { retry, catchError, map, filter, scan, throttleTime, concatAll } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-list',
@@ -14,6 +14,7 @@ export class UserListComponent implements OnInit {
   metroArrives: Object;
   errormsg: string;
   abc: UserService;
+  myJSON: string;
   constructor(private userlist: UserService) {
 
   }
@@ -26,7 +27,9 @@ export class UserListComponent implements OnInit {
 
     this.userlist.getUrl().subscribe(
       userlist => {
-        return this.users = userlist;
+        this.users = userlist;
+        console.log(this.users);
+        return this.users;
       },
       // UserService =>this.users = UserService,
       error => this.errormsg = error
@@ -36,11 +39,14 @@ export class UserListComponent implements OnInit {
     //   (abc:UserService) => this.users = UserService
     // );
 
-    this.userlist.getMetroArriaveUrl().subscribe(
+    this.userlist.getMetroArriaveUrl().pipe().subscribe(
       userlist => {
         this.metroArrives = userlist;
         console.log(this.metroArrives);
-        return this.metroArrives;
+        console.log(JSON.stringify(this.metroArrives));
+        console.log(JSON.parse(JSON.stringify(this.metroArrives)));
+
+        return this.metroArrives = JSON.parse(JSON.stringify(this.metroArrives));
       },
       error => this.errormsg = error
     );
@@ -71,7 +77,7 @@ export class UserListComponent implements OnInit {
     });
 
     // Button On the Screen
-    console.clear();
+    // console.clear();
     const btn = document.querySelector('#wowBtn');
     fromEvent(btn, 'click').subscribe(() => console.log('wow clicked'));
 

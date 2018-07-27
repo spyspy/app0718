@@ -15,7 +15,10 @@ export class UserService implements OnInit {
     this.myurl = 'https://jsonplaceholder.typicode.com/users';   // 正確
     // this.myurl = 'https://jsonplaceholder.typicode.com/usersx'; // 錯誤
     // this.myurl = 'https://jsonplaceholder.typicode.com/posts/1'; // POST
-    this.metroArriveUrl = 'http://data.taipei/opendata/datalist/apiAccess?scope=resourceAquire&rid=55ec6d6e-dc5c-4268-a725-d04cc262172b';
+    // this.metroArriveUrl = 'http://data.taipei/opendata/datalist/apiAccess?scope=resourceAquire&rid=55ec6d6e-dc5c-4268-a725-d04cc262172b';
+    // this.metroArriveUrl = 'http://data.ntpc.gov.tw/api/v1/rest/datastore/382000000A-000352-001';
+    this.metroArriveUrl = '/opendata/datalist/apiAccess?scope=resourceAquire&rid=55ec6d6e-dc5c-4268-a725-d04cc262172b';
+
   }
   getConfig() {
     return this.http.get(this.configUrl);
