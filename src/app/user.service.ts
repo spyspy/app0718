@@ -26,7 +26,7 @@ export class UserService implements OnInit {
 
   // 注意!! 要有return 才可以subscribe() 訂閱
   getUrl() {
-    return this.wow.get(this.myurl);
+    return this.wow.get(this.myurl).pipe();
   }
 
 
