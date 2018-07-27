@@ -1,0 +1,6 @@
+{
+    "/opendata": {
+      "target": "http://data.taipei",
+      "secure": false
+    }
+  }

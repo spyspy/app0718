@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { throwError, of, from, Observable, fromEvent } from 'rxjs';
-import { retry, catchError, map, filter, scan, throttleTime } from 'rxjs/operators';
+import { retry, catchError, map, filter, scan, throttleTime, concatAll } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-list',
@@ -11,8 +11,10 @@ import { retry, catchError, map, filter, scan, throttleTime } from 'rxjs/operato
 export class UserListComponent implements OnInit {
 
   users: Object;
+  metroArrives: Object;
   errormsg: string;
   abc: UserService;
+  myJSON: string;
   constructor(private userlist: UserService) {
 
   }
@@ -25,7 +27,9 @@ export class UserListComponent implements OnInit {
 
     this.userlist.getUrl().subscribe(
       userlist => {
-        return this.users = userlist;
+        this.users = userlist;
+        console.log(this.users);
+        return this.users;
       },
       // UserService =>this.users = UserService,
       error => this.errormsg = error
@@ -35,32 +39,45 @@ export class UserListComponent implements OnInit {
     //   (abc:UserService) => this.users = UserService
     // );
 
-    //How to use RxJS
+    this.userlist.getMetroArriaveUrl().pipe().subscribe(
+      userlist => {
+        this.metroArrives = userlist;
+        console.log(this.metroArrives);
+        console.log(JSON.stringify(this.metroArrives));
+        console.log(JSON.parse(JSON.stringify(this.metroArrives)));
 
-    //Print out: One by One
-    let data = [1, 2, 3];
+        return this.metroArrives = JSON.parse(JSON.stringify(this.metroArrives));
+      },
+      error => this.errormsg = error
+    );
+
+
+    // How to use RxJS
+
+    // Print out: One by One
+    const data = [1, 2, 3];
     from(data).subscribe(test => console.log(test));
 
-    //Print out: The whole array
-    let data2 = [333, 555, 777];
+    // Print out: The whole array
+    const data2 = [333, 555, 777];
     of(data2).subscribe(num => console.log(num));
 
-    //Formal Expression
-    let data3 = ['koko', 'kiki', 'boyo'];
+    // Formal Expression
+    const data3 = ['koko', 'kiki', 'boyo'];
     of(data3).subscribe({
       next: function (value) {
-        console.log(value)
+        console.log(value);
       },
       complete: function () {
         console.log('complete!');
       },
       error: function (error) {
-        console.log(error)
+        console.log(error);
       }
     });
 
     //Button On the Screen
-    console.clear();
+    //console.clear();
     let btn = document.querySelector('#wowBtn');
     fromEvent(btn, 'click')
     .pipe(throttleTime(1000),scan(count=>count+1,0))
