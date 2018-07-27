@@ -62,12 +62,14 @@ export class UserListComponent implements OnInit {
     //Button On the Screen
     console.clear();
     let btn = document.querySelector('#wowBtn');
-    fromEvent(btn, 'click').subscribe(() => console.log('wow clicked'));
+    fromEvent(btn, 'click')
+    .pipe(throttleTime(1000),scan(count=>count+1,0))
+    .subscribe((count) => console.log(`btn click event ${count} w`));
     
     let myinput = document.querySelector('#myinput');
     fromEvent(myinput, 'keyup')
     .pipe(throttleTime(1000),scan(count=>count+1,0))
-    .subscribe((count) => console.log(`myinput clicked ${count} w`));
+    .subscribe((count) => console.log(`myinput keyup event ${count} w`));
   }
 
 }
