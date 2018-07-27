@@ -10,23 +10,24 @@ export class UserService implements OnInit {
   configUrl = 'assets/config.json';
   myurl: string;
 
-  constructor(private wow: HttpClient) {
+  constructor(private http: HttpClient) {
     this.myurl = 'https://jsonplaceholder.typicode.com/users';   // 正確
     // this.myurl = 'https://jsonplaceholder.typicode.com/usersx'; // 錯誤
     // this.myurl = 'https://jsonplaceholder.typicode.com/posts/1'; // POST
   }
   getConfig() {
-    return this.wow.get(this.configUrl);
+    return this.http.get(this.configUrl);
   }
 
   ngOnInit() {
-    console.log(this.wow.get(this.configUrl));
-    return this.wow.get(this.configUrl);
+    console.log(this.http.get(this.configUrl));
+    return this.http.get(this.configUrl);
   }
 
   // 注意!! 要有return 才可以subscribe() 訂閱
+  // HttpClient 的 get 方法會產生一個 observable物件
   getUrl() {
-    return this.wow.get(this.myurl).pipe();
+    return this.http.get(this.myurl);
   }
 
 
