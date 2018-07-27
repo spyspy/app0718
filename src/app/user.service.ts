@@ -9,11 +9,13 @@ export class UserService implements OnInit {
 
   configUrl = 'assets/config.json';
   myurl: string;
+  metroArriveUrl: string;
 
   constructor(private http: HttpClient) {
     this.myurl = 'https://jsonplaceholder.typicode.com/users';   // 正確
     // this.myurl = 'https://jsonplaceholder.typicode.com/usersx'; // 錯誤
     // this.myurl = 'https://jsonplaceholder.typicode.com/posts/1'; // POST
+    this.metroArriveUrl = 'http://data.taipei/opendata/datalist/apiAccess?scope=resourceAquire&rid=55ec6d6e-dc5c-4268-a725-d04cc262172b';
   }
   getConfig() {
     return this.http.get(this.configUrl);
@@ -30,5 +32,8 @@ export class UserService implements OnInit {
     return this.http.get(this.myurl);
   }
 
+  getMetroArriaveUrl() {
+    return this.http.get(this.metroArriveUrl);
+  }
 
 }

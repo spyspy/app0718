@@ -11,6 +11,7 @@ import { retry, catchError, map, filter, scan, throttleTime } from 'rxjs/operato
 export class UserListComponent implements OnInit {
 
   users: Object;
+  metroArrives: Object;
   errormsg: string;
   abc: UserService;
   constructor(private userlist: UserService) {
@@ -35,39 +36,49 @@ export class UserListComponent implements OnInit {
     //   (abc:UserService) => this.users = UserService
     // );
 
-    //How to use RxJS
+    this.userlist.getMetroArriaveUrl().subscribe(
+      userlist => {
+        this.metroArrives = userlist;
+        console.log(this.metroArrives);
+        return this.metroArrives;
+      },
+      error => this.errormsg = error
+    );
 
-    //Print out: One by One
-    let data = [1, 2, 3];
+
+    // How to use RxJS
+
+    // Print out: One by One
+    const data = [1, 2, 3];
     from(data).subscribe(test => console.log(test));
 
-    //Print out: The whole array
-    let data2 = [333, 555, 777];
+    // Print out: The whole array
+    const data2 = [333, 555, 777];
     of(data2).subscribe(num => console.log(num));
 
-    //Formal Expression
-    let data3 = ['koko', 'kiki', 'boyo'];
+    // Formal Expression
+    const data3 = ['koko', 'kiki', 'boyo'];
     of(data3).subscribe({
       next: function (value) {
-        console.log(value)
+        console.log(value);
       },
       complete: function () {
         console.log('complete!');
       },
       error: function (error) {
-        console.log(error)
+        console.log(error);
       }
     });
 
-    //Button On the Screen
+    // Button On the Screen
     console.clear();
-    let btn = document.querySelector('#wowBtn');
+    const btn = document.querySelector('#wowBtn');
     fromEvent(btn, 'click').subscribe(() => console.log('wow clicked'));
-    
-    let myinput = document.querySelector('#myinput');
+
+    const myinput = document.querySelector('#myinput');
     fromEvent(myinput, 'keyup')
-    .pipe(throttleTime(1000),scan(count=>count+1,0))
-    .subscribe((count) => console.log(`myinput clicked ${count} w`));
+      .pipe(throttleTime(1000), scan(count => count + 1, 0))
+      .subscribe((count) => console.log(`myinput clicked ${count} w`));
   }
 
 }
