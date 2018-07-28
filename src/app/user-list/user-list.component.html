@@ -5,16 +5,28 @@
 
 <hr>
 =====
-<ul *ngFor="let metro of metroArrives">
-  <li>{{metro.success}}</li>
-</ul>
+<h5>資料來源: 台北市政府 Open Data</h5>
+<table>
+  <tr>
+    <th>NO</th>
+    <th>Staton</th>
+    <th>Destination</th>
+    <th>UpdateTime</th>
+  </tr>
+  <tr *ngFor="let metro of metroArrives">
+    <td>{{metro._id}}</td>
+    <td>{{metro.Station}}</td>
+    <td>{{metro.Destination}}</td>
+    <td>{{metro.UpdateTime}}</td>
+  </tr>
+</table>
 =====
 <hr>
 
-<ul *ngFor="let wow of users">
+<!-- <ul *ngFor="let wow of users">
     <li>{{wow.name}}</li>
     <li>{{wow.email}}</li>
-</ul>
+</ul> -->
 
 
 <table>

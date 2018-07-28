@@ -2,5 +2,9 @@
     "/opendata": {
       "target": "http://data.taipei",
       "secure": false
+    },
+    "/api": {
+      "target": "http://data.ntpc.gov.tw/",
+      "secure": false
     }
-  }
+}

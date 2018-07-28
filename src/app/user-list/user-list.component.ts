@@ -41,12 +41,13 @@ export class UserListComponent implements OnInit {
 
     this.userlist.getMetroArriaveUrl().pipe().subscribe(
       userlist => {
-        this.metroArrives = userlist;
-        console.log(this.metroArrives);
-        console.log(JSON.stringify(this.metroArrives));
-        console.log(JSON.parse(JSON.stringify(this.metroArrives)));
-
-        return this.metroArrives = JSON.parse(JSON.stringify(this.metroArrives));
+        // 說明:必須直接抓到 Array 用以展現在html使用 ngFor
+        this.metroArrives = userlist['result']['results'];
+        // console.log(this.metroArrives['result']['results']);
+        // console.log(JSON.stringify(this.metroArrives));
+        // console.log(JSON.parse(JSON.stringify(this.metroArrives)));
+        // return this.metroArrives = JSON.parse(JSON.stringify(this.metroArrives));
+        return this.metroArrives;
       },
       error => this.errormsg = error
     );
